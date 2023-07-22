@@ -24,33 +24,83 @@ export const create = async (req, res) => {
 };
 
 export const getAll = async (req, res) => {
-  const posts = await PostModel.find();
-  return res.status(200).json(posts);
+  try {
+    const posts = await PostModel.find().populate("user").exec();
+    return res.json(posts);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Не удалось получить статьи"
+    });
+  }
 };
 
 export const getOne = async (req, res) => {
-  const { id } = req.params;
-  console.log(req.params);
-  if (isValidObjectId(id)) {
-    const post = await PostModel.findById(id);
-    return res.status(200).json(post);
-  } else {
-    return res.status(400).json({ message: "Не удалось получить статью" });
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id))
+      return res.status(400).json({ message: "Не удалось получить статью" });
+
+    const post = await PostModel.findOneAndUpdate(
+      {
+        _id: id
+      },
+      {
+        $inc: { views: 1 }
+      },
+      {
+        returnDocument: "after"
+      }
+    );
+    return res.json(post);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Не удалось получить статью"
+    });
   }
 };
 
 export const remove = async (req, res) => {
-  const { id } = req.params;
   try {
-    if (id) {
-      const post = PostModel.deleteOne({ id });
-      return res.status(200).json(post);
+    const { id } = req.params;
+
+    if (isValidObjectId(id)) {
+      await PostModel.findByIdAndDelete({ _id: id });
+      return res.json({ success: true });
     } else
       return res.status(400).json({ message: "Не удалось удалить статью" });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       message: "Не удалось удалить статью"
+    });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, text, imageUrl, tags } = req.body;
+
+    if (isValidObjectId(id)) {
+      await PostModel.findByIdAndUpdate(
+        { _id: id },
+        {
+          title,
+          text,
+          imageUrl,
+          tags,
+          user: req.userId
+        }
+      );
+      res.json({ success: true });
+    } else
+      return res.status(400).json({ message: "Не удалось обновить статью" });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Не удалось обновить статью"
     });
   }
 };

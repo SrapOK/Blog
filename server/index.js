@@ -9,6 +9,8 @@ connectDB();
 const app = express();
 
 app.use(express.json());
+app.use("/api/uploads", express.static("uploads"));
+
 app.use("/api", router);
 
 app.listen(process.env.PORT, (err) => {

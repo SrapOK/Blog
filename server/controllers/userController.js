@@ -10,17 +10,13 @@ const generateJwt = (id) =>
     {
       _id: id
     },
-    "secret",
+    process.env.SECRET_KEY,
     { expiresIn: "7d" }
   );
 
 export const register = async (req, res) => {
   try {
     const { email, fullName, avatarUrl } = req.body;
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json(errors.array());
-    }
 
     const passwordHash = await bcrypt.hash(req.body.password, 4);
 
