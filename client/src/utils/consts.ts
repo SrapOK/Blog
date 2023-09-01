@@ -1,4 +1,10 @@
 export const ADMIN_ROUTE = "/admin";
 export const HOME_ROUTE = "/";
 export const NOT_FOUND_ROUTE = "/*";
-export const POSTS_ROUTE = "/posts/:id";
+export const POSTS_ROUTE = "/posts";
+export const LOGIN_ROUTE = "/login";
+export const USER_ROUTE = "/user";
+export const REGISTRATION_ROUTE = "/register";
+export const AUTH_ROUTE = "/auth";
+export const CREATE_POST_ROUTE = `${POSTS_ROUTE}/create`;
+export const IMAGES_ROUTE = `/uploads`;

@@ -5,13 +5,13 @@ import Footer from "./Footer";
 
 function Layout() {
   return (
-    <>
+    <div className="bg-gray-100">
       <NavBar />
-      <main>
+      <main className="mb-0 pb-16">
         <Outlet />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

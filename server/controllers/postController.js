@@ -9,7 +9,7 @@ export const create = async (req, res) => {
       title,
       text,
       imageUrl,
-      tags,
+      tags: tags.split(/[\s,]/).filter((item) => item !== ""),
       user: req.userId
     });
 
@@ -90,7 +90,7 @@ export const update = async (req, res) => {
           title,
           text,
           imageUrl,
-          tags,
+          tags: tags.split(/[\s,]/).filter((item) => item !== ""),
           user: req.userId
         }
       );
@@ -101,6 +101,24 @@ export const update = async (req, res) => {
     console.log(err);
     return res.status(500).json({
       message: "Не удалось обновить статью"
+    });
+  }
+};
+
+export const getLastTags = async (req, res) => {
+  try {
+    const posts = await PostModel.find().limit(5).exec();
+
+    const tags = posts
+      .map((item) => item.tags)
+      .flat()
+      .slice(0, 5);
+
+    return res.json(tags);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: "Не удалось получить статьи"
     });
   }
 };

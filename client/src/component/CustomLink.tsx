@@ -7,7 +7,11 @@ interface CustomLinkProps {
 }
 
 const CustomLink: React.FC<CustomLinkProps> = (props) => {
-  return <Link to={props.to}>{props.children}</Link>;
+  return (
+    <Link className="h-fit" to={props.to}>
+      {props.children}
+    </Link>
+  );
 };
 
 export default CustomLink;

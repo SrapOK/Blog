@@ -7,6 +7,7 @@ import handleValidationErrors from "../utils/handleValidationErrors.js";
 
 const router = new Router();
 
+router.get("/tags", postController.getLastTags);
 router.get("/", postController.getAll);
 router.get("/:id", postController.getOne);
 router.post(

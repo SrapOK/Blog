@@ -1,20 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { $host } from "../../http";
+import { POSTS_ROUTE } from "../../utils/consts";
+import { fetchTagsApi } from "../../http/TagsAPI";
+import { fetchPostsApi, removePostApi } from "../../http/PostsAPI";
 
 type status = "pending" | "fulfilled" | "rejected";
 
-interface postSliceInitialState {
+interface IPostSliceInitialState {
   posts: {
-    items: [];
+    items: any[];
     status: status;
   };
   tags: {
-    items: [];
+    items: any[];
     status: status;
   };
 }
 
-const initialState: postSliceInitialState = {
+const initialState: IPostSliceInitialState = {
   posts: {
     items: [],
     status: "pending"
@@ -25,10 +27,20 @@ const initialState: postSliceInitialState = {
   }
 };
 
-export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
-  const { data } = await $host.get("/posts");
-  return data;
-});
+export const fetchRemovePost = createAsyncThunk(
+  `${POSTS_ROUTE}/fetchRemovePost`,
+  removePostApi
+);
+
+export const fetchPosts = createAsyncThunk(
+  `${POSTS_ROUTE}/fetchPosts`,
+  fetchPostsApi
+);
+
+export const fetchTags = createAsyncThunk(
+  `${POSTS_ROUTE}/fetchTags`,
+  fetchTagsApi
+);
 
 const postsSlice = createSlice({
   name: "posts",
@@ -36,7 +48,8 @@ const postsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPosts.pending, (state, action) => {
+      //posts
+      .addCase(fetchPosts.pending, (state) => {
         state.posts.items = [];
         state.posts.status = "pending";
       })
@@ -44,9 +57,34 @@ const postsSlice = createSlice({
         if (action.payload) state.posts.items = action.payload;
         state.posts.status = "fulfilled";
       })
-      .addCase(fetchPosts.rejected, (state, action) => {
+      .addCase(fetchPosts.rejected, (state) => {
         state.posts.items = [];
         state.posts.status = "rejected";
+      })
+      //tags
+      .addCase(fetchTags.pending, (state) => {
+        state.tags.items = [];
+        state.tags.status = "pending";
+      })
+      .addCase(fetchTags.fulfilled, (state, action) => {
+        if (action.payload) state.tags.items = action.payload;
+        state.tags.status = "fulfilled";
+      })
+      .addCase(fetchTags.rejected, (state) => {
+        state.tags.items = [];
+        state.tags.status = "rejected";
+      })
+      //Удаление
+      .addCase(fetchRemovePost.pending, (state) => {
+        state.posts.status = "pending";
+      })
+      .addCase(fetchRemovePost.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.posts.items = state.posts.items.filter(
+            (obj) => obj._id !== action.payload
+          );
+          state.posts.status = "fulfilled";
+        }
       });
   }
 });
