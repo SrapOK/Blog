@@ -11,20 +11,21 @@ import TagsBar from "../component/TagsBar";
 export const Home = () => {
   const dispatch = useAppDispatch();
   const { posts, tags } = useAppSelector((state) => state.posts);
+  const { tag, sort } = useAppSelector((state) => state.filter);
 
   useEffect(() => {
-    dispatch(fetchPosts());
+    dispatch(fetchPosts({ tag, sort }));
     dispatch(fetchTags());
-  }, []);
+  }, [tag, sort]);
 
   const isPostLoading = posts.status === "pending";
-  const isTagsLoading = tags.status === "pending";
+  const areTagsLoading = tags.status === "pending";
 
   return (
     <div className="bg-gray-100 flex justify-center">
       <div className="flex justify-between gap-10 flex-col-reverse md:flex-row">
         <PostList list={isPostLoading ? [...Array(5)] : posts.items} />
-        <TagsBar list={isTagsLoading ? [...Array(5)] : tags.items} />
+        <TagsBar list={areTagsLoading ? [...Array(5)] : tags.items} />
       </div>
     </div>
   );

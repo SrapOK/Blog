@@ -12,8 +12,19 @@ export interface UpdatedPost extends NewPost {
   id: string;
 }
 
-export const fetchPostsApi = async () => {
-  const { data } = await $host.get(`${POSTS_ROUTE}`);
+export const fetchPostsApi = async (tag = "", sort = "") => {
+  const params = new URLSearchParams();
+
+  if (tag) {
+    params.append("tag", tag);
+  }
+
+  if (sort) {
+    params.append("sort", sort);
+  }
+
+  const { data } = await $host.get(`${POSTS_ROUTE}`, { params });
+
   return data;
 };
 

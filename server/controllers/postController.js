@@ -25,7 +25,39 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const posts = await PostModel.find().populate("user").exec();
+    const { tag, sort } = req.query;
+    console.log(tag, sort);
+
+    let posts;
+    let sortType;
+
+    if (sort === "popular") {
+      sortType = "views";
+    } else if (sort === "new") {
+      sortType = "createdAt";
+    }
+
+    if (sort && tag) {
+      posts = await PostModel.find({ tags: { $in: [tag] } })
+        .limit(10)
+        .sort({ [sortType]: "desc" })
+        .populate("user")
+        .exec();
+    } else if (sort) {
+      posts = await PostModel.find()
+        .limit(10)
+        .sort({ [sortType]: "desc" })
+        .populate("user")
+        .exec();
+    } else if (tag) {
+      posts = await PostModel.find({ tags: { $in: [tag] } })
+        .limit(10)
+        .populate("user")
+        .exec();
+    } else {
+      posts = await PostModel.find().limit(10).populate("user").exec();
+    }
+
     return res.json(posts);
   } catch (err) {
     console.log(err);

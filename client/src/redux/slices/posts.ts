@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { POSTS_ROUTE } from "../../utils/consts";
 import { fetchTagsApi } from "../../http/TagsAPI";
 import { fetchPostsApi, removePostApi } from "../../http/PostsAPI";
+import { IPostFilterOptions } from "./filter";
 
 type status = "pending" | "fulfilled" | "rejected";
 
@@ -34,7 +35,10 @@ export const fetchRemovePost = createAsyncThunk(
 
 export const fetchPosts = createAsyncThunk(
   `${POSTS_ROUTE}/fetchPosts`,
-  fetchPostsApi
+  async ({ tag, sort }: IPostFilterOptions) => {
+    const data = fetchPostsApi(tag, sort);
+    return data;
+  }
 );
 
 export const fetchTags = createAsyncThunk(

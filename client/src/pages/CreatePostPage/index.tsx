@@ -8,7 +8,7 @@ import { uploadImage } from "../../http/ImageAPI";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { selectIsAuth } from "../../redux/slices/auth";
 
-import MoveBackButton from "../../component/MoveBackButton";
+import MoveBackButton from "../../component/BlankButton";
 import Button from "../../component/Button";
 import Card from "../../component/Card";
 
