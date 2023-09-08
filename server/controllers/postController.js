@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import PostModel from "../models/Post.js";
 import { isValidObjectId } from "mongoose";
 
@@ -26,7 +25,6 @@ export const create = async (req, res) => {
 export const getAll = async (req, res) => {
   try {
     const { tag, sort } = req.query;
-    console.log(tag, sort);
 
     let posts;
     let sortType;
