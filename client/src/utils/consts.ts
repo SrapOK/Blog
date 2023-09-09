@@ -7,4 +7,5 @@ export const USER_ROUTE = "/user";
 export const REGISTRATION_ROUTE = "/register";
 export const AUTH_ROUTE = "/auth";
 export const CREATE_POST_ROUTE = `${POSTS_ROUTE}/create`;
-export const IMAGES_ROUTE = `/uploads`;
+export const IMAGES_ROUTE = "/uploads";
+export const COMMENTS_ROUTE = "/comments";

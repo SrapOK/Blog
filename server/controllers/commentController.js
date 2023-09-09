@@ -26,7 +26,10 @@ export const getCommentsByPostId = async (req, res) => {
     if (!isValidObjectId(id)) {
       return res.status(400).json({ message: "Не удалось получить пост" });
     }
-    const comments = await CommentModel.find({ post: id });
+    const comments = await CommentModel.find({ post: id }).populate("user", [
+      "fullName",
+      "avatarUrl"
+    ]);
     return res.json(comments);
   } catch (err) {
     console.log(err);
@@ -42,7 +45,10 @@ export const getCommentsByUserId = async (req, res) => {
         .status(400)
         .json({ message: "Не удалось получить пользователя" });
     }
-    const comments = await CommentModel.find({ user: id });
+    const comments = await CommentModel.find({ user: id }).populate("user", [
+      "fullName",
+      "avatarUrl"
+    ]);
     return res.json(comments);
   } catch (err) {
     console.log(err);
@@ -58,7 +64,10 @@ export const getOne = async (req, res) => {
         .status(400)
         .json({ message: "Не удалось получить комментарий" });
     }
-    const comment = await CommentModel.findById(id);
+    const comment = await CommentModel.findById(id).populate("user", [
+      "fullName",
+      "avatarUrl"
+    ]);
     return res.json(comment);
   } catch (err) {
     console.log(err);
@@ -68,7 +77,10 @@ export const getOne = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const comments = await CommentModel.find();
+    const comments = await CommentModel.find().populate("user", [
+      "fullName",
+      "avatarUrl"
+    ]);
     return res.json(comments);
   } catch (err) {
     console.log(err);

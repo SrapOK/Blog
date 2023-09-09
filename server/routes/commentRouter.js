@@ -5,7 +5,7 @@ import checkAuth from "../utils/checkAuth.js";
 
 const router = new Router();
 
-router.get("/post/:id", commentController.getCommentsByPostId);
+router.get("/posts/:id", commentController.getCommentsByPostId);
 router.get("/user/:id", commentController.getCommentsByUserId);
 router.get("/:id", commentController.getOne);
 router.get("/", commentController.getAll);

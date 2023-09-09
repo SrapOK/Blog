@@ -4,25 +4,41 @@ import { useState, useEffect } from "react";
 
 import PostPageSkeleton from "./Skeleton";
 import BottomPostBar from "../../component/BottomPostBar";
+import CommentsList, { commentList } from "../../component/CommentsList";
+
 import { fetchPostByIdApi } from "../../http/PostsAPI";
 import { getFullImageUrl } from "../../utils/helpers";
+import { fetchCommentsById } from "../../http/CommentsAPI";
+import { PostProps } from "../../component/Post";
+
+interface IfullPost extends PostProps {
+  author: string;
+}
 
 const Post: React.FC = () => {
-  const [data, setData] = useState({} as any);
+  const [postData, setPostData] = useState<IfullPost>();
+  const [comments, setComments] = useState<commentList>();
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
-  console.log(data);
-  console.log(getFullImageUrl(data.imageUrl));
 
   useEffect(() => {
     fetchPostByIdApi(id)
       .then((res) => {
-        setData(res);
+        setPostData(res);
         setIsLoading(false);
       })
       .catch((err) => {
         console.warn(err);
         alert("Ошибка при получении статьи");
+      });
+
+    fetchCommentsById(id)
+      .then((res) => {
+        setComments(res);
+      })
+      .catch((err) => {
+        console.warn(err);
+        alert("Ошибка при получении комментариев");
       });
   }, []);
 
@@ -31,11 +47,11 @@ const Post: React.FC = () => {
   } else
     return (
       <div className="my-2 container mx-auto min-w-[30%] w-fit border-2 max-w-[70%] rounded-t-md  mt-10 bg-white">
-        {data.imageUrl ? (
+        {postData?.imageUrl ? (
           <div className="w-full flex justify-center ">
             <img
               className="rounded-t-md   "
-              src={getFullImageUrl(data.imageUrl)}
+              src={getFullImageUrl(postData.imageUrl)}
               alt="post"
             />
           </div>
@@ -43,17 +59,36 @@ const Post: React.FC = () => {
           <></>
         )}
         <div className="flex justify-center border-b py-2 bg-blue-300 ">
-          <h2 className="text-2xl">{data.title}</h2>
+          <h2 className="text-2xl">{postData?.title}</h2>
         </div>
 
         <div className="py-4  indent-4 text-justify px-4 bg-white">
-          {data.text}
+          {postData?.text}
         </div>
+
         <BottomPostBar
-          views={data.views}
-          author={data.author}
-          tags={data.tags}
+          views={postData?.views}
+          author={postData?.author}
+          tags={postData?.tags}
         />
+
+        <div className="px-10 bg-lsate-500">
+          <p>
+            {comments ? (
+              <CommentsList list={comments}></CommentsList>
+            ) : (
+              <CommentsList list={[...Array(5)]}></CommentsList>
+            )}
+          </p>
+        </div>
+
+        <p>
+          {comments ? (
+            <CommentsList list={comments}></CommentsList>
+          ) : (
+            <CommentsList list={[...Array(5)]}></CommentsList>
+          )}
+        </p>
       </div>
     );
 };
