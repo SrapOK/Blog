@@ -1,7 +1,7 @@
 import React from "react";
-import ContentLoader from "react-content-loader";
+import ContentLoader, { IContentLoaderProps } from "react-content-loader";
 
-const PostSkeleton = ({ ...rest }) => (
+const PostSkeleton = (props: IContentLoaderProps) => (
   <div className="max-w-xl max-h-72  border-2 rounded">
     <ContentLoader
       speed={1}
@@ -10,7 +10,7 @@ const PostSkeleton = ({ ...rest }) => (
       viewBox="0 0 573 400"
       backgroundColor="#d1d1d1"
       foregroundColor="#e1e1e1"
-      {...rest}
+      {...props}
     >
       <rect x="0" y="0" rx="0" ry="0" width="573" height="500" />
     </ContentLoader>

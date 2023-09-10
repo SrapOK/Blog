@@ -14,21 +14,30 @@ interface PostListProps {
 
 const PostList: React.FC<PostListProps> = (props) => {
   const userData = useAppSelector((state) => state.auth.data);
+  const currentSort = useAppSelector((state) => state.filter.sort);
+
   const dispatch = useAppDispatch();
 
-  const onClickSort = (sort: string) => () => dispatch(setSort(sort));
+  const onClickSort = (sort: string) => () => {
+    if (currentSort === sort) dispatch(setSort(""));
+    else dispatch(setSort(sort));
+  };
 
   return (
     <div className="mt-10">
       <div className="ml-1 space-x-10">
         <MoveBackButton
-          className="px-6 hover:border-blue-800 rounded-none border-b-4 border-transparent"
+          className={`px-6 hover:border-blue-800 rounded-none border-b-4 border-transparent ${
+            currentSort === "new" ? "border-blue-800" : ""
+          }`}
           onClick={onClickSort("new")}
         >
           Новые
         </MoveBackButton>
         <MoveBackButton
-          className="px-6 hover:border-blue-800 rounded-none border-b-4 border-transparent"
+          className={`px-6 hover:border-blue-800 rounded-none border-b-4 border-transparent ${
+            currentSort === "popular" ? "border-blue-800" : ""
+          }`}
           onClick={onClickSort("popular")}
         >
           Популярные

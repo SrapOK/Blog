@@ -52,8 +52,13 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
       )}
       <div className="pt-2 flex justify-between">
         <div className="flex gap-2 align-middle mx-2">
-          {props.user.avatar ? (
-            props.user.avatar
+          {props.user.avatarUrl ? (
+            <img
+              width={40}
+              className="rounded-full"
+              src={props.user.avatarUrl}
+              alt="avatar"
+            />
           ) : (
             <RxAvatar className=" rounded-full" size={40} />
           )}

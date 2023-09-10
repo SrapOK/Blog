@@ -11,7 +11,7 @@ export interface commentsListProps {
 
 const CommentsList: React.FC<commentsListProps> = (props) => {
   return (
-    <>
+    <div className="py-2 border-t-2">
       {props.list.map((item, index) =>
         item ? (
           <Comment key={item._id} {...item}></Comment>
@@ -19,7 +19,7 @@ const CommentsList: React.FC<commentsListProps> = (props) => {
           <CommentSkeleton key={index}></CommentSkeleton>
         )
       )}
-    </>
+    </div>
   );
 };
 

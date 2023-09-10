@@ -65,30 +65,19 @@ const Post: React.FC = () => {
         <div className="py-4  indent-4 text-justify px-4 bg-white">
           {postData?.text}
         </div>
-
-        <BottomPostBar
-          views={postData?.views}
-          author={postData?.author}
-          tags={postData?.tags}
-        />
-
-        <div className="px-10 bg-lsate-500">
-          <p>
-            {comments ? (
-              <CommentsList list={comments}></CommentsList>
-            ) : (
-              <CommentsList list={[...Array(5)]}></CommentsList>
-            )}
-          </p>
+        <div>
+          <BottomPostBar
+            views={postData?.views}
+            author={postData?.author}
+            tags={postData?.tags}
+          />
         </div>
 
-        <p>
-          {comments ? (
-            <CommentsList list={comments}></CommentsList>
-          ) : (
-            <CommentsList list={[...Array(5)]}></CommentsList>
-          )}
-        </p>
+        {comments?.length ? (
+          <CommentsList list={comments}></CommentsList>
+        ) : (
+          <></>
+        )}
       </div>
     );
 };

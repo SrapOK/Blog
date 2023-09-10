@@ -1,20 +1,20 @@
 import React from "react";
-import ContentLoader from "react-content-loader";
+import ContentLoader, { IContentLoaderProps } from "react-content-loader";
 
-const CommentSkeleton = ({ ...rest }) => (
-  <div className="max-w-xl max-h-72  border-2 rounded">
-    <ContentLoader
-      speed={1}
-      width={573}
-      height={400}
-      viewBox="0 0 573 400"
-      backgroundColor="#d1d1d1"
-      foregroundColor="#e1e1e1"
-      {...rest}
-    >
-      <rect x="0" y="0" rx="0" ry="0" width="573" height="500" />
+const CommentSkeleton = (props: IContentLoaderProps) => {
+  return (
+    <ContentLoader height={1200} width={1060} {...props}>
+      <rect x="103" y="12" rx="3" ry="3" width="123" height="7" />
+      <rect x="102" y="152" rx="3" ry="3" width="171" height="6" />
+      <circle cx="44" cy="42" r="38" />
+      <circle cx="44" cy="147" r="38" />
+      <circle cx="44" cy="251" r="38" />
+      <rect x="105" y="117" rx="3" ry="3" width="123" height="7" />
+      <rect x="104" y="222" rx="3" ry="3" width="123" height="7" />
+      <rect x="105" y="48" rx="3" ry="3" width="171" height="6" />
+      <rect x="104" y="257" rx="3" ry="3" width="171" height="6" />
     </ContentLoader>
-  </div>
-);
+  );
+};
 
 export default CommentSkeleton;

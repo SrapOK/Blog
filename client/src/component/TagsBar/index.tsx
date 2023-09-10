@@ -3,7 +3,7 @@ import React from "react";
 import { HiHashtag } from "react-icons/hi";
 
 import TagsBarSkeleton from "./Skeleton";
-import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 
 import { setTag } from "../../redux/slices/filter";
 
@@ -13,8 +13,12 @@ interface ITagsProps {
 
 const TagsBar: React.FC<ITagsProps> = ({ list }) => {
   const dispatch = useAppDispatch();
+  const currentTag = useAppSelector((state) => state.filter.tag);
 
-  const onClickTag = (tag: string) => () => dispatch(setTag(tag));
+  const onClickTag = (tag: string) => () => {
+    if (currentTag === tag) dispatch(setTag(""));
+    else dispatch(setTag(tag));
+  };
 
   return list.length > 0 ? (
     <div className="p-4 w-full md:w-36 mt-10  md:ml-16 border-2 h-fit bg-white">
@@ -24,7 +28,9 @@ const TagsBar: React.FC<ITagsProps> = ({ list }) => {
           item ? (
             <li
               onClick={onClickTag(item)}
-              className=" flex justify-between p-2 border-b-2 hover:border-blue-500 cursor-pointer"
+              className={`flex justify-between p-2 border-b-2 hover:border-blue-500 cursor-pointer ${
+                item === currentTag ? " border-blue-500" : ""
+              }`}
               key={index}
             >
               <HiHashtag className="mt-2" />
