@@ -28,7 +28,7 @@ const TagsBar: React.FC<ITagsProps> = ({ list }) => {
           item ? (
             <li
               onClick={onClickTag(item)}
-              className={`flex justify-between p-2 border-b-2 hover:border-blue-500 cursor-pointer ${
+              className={`flex justify-between p-2 border-b-2 hover:border-blue-500 duration-300 cursor-pointer ${
                 item === currentTag ? " border-blue-500" : ""
               }`}
               key={index}

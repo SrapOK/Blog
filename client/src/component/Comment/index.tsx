@@ -14,7 +14,7 @@ export interface CommentProps {
 
 const Comment: React.FC<CommentProps> = (props) => {
   return (
-    <div className="flex border-b gap-4 ml-2 my-4 py-1 mr-0 ">
+    <div className="flex border-b gap-4 my-4 py-1 mr-0 ">
       <div className="flex align-middle flex-col justify-center text-center gap-2">
         <div className=" mx-auto">
           {props.user.avatarUrl ? (
@@ -31,7 +31,7 @@ const Comment: React.FC<CommentProps> = (props) => {
         <div className="flex gap-2">
           <AiOutlineLike
             size={22}
-            className="my-auto rounded hover:bg-gray-200"
+            className="my-auto rounded-full hover:bg-gray-200"
           ></AiOutlineLike>
           <p
             className={`text-lg text-center ${
@@ -42,13 +42,16 @@ const Comment: React.FC<CommentProps> = (props) => {
           </p>
           <AiOutlineDislike
             size={22}
-            className=" my-auto rounded hover:bg-gray-200"
+            className=" my-auto rounded-full hover:bg-gray-200"
           ></AiOutlineDislike>
         </div>
       </div>
-      <div className="ml-2">
+      <div className="ml-2 flex justify-between flex-col">
         <p className=" my-auto">{props.user.fullName}</p>
-        <p className="text-gray-700 text-md">{props.text}</p>
+        <p className="text-gray-700 my-2">{props.text}</p>
+        <p className="text-gray-500 text-sm ">
+          {new Date(props.createdAt).toLocaleString()}
+        </p>
       </div>
     </div>
   );

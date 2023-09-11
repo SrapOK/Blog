@@ -64,7 +64,11 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
           )}
           <div>
             <p className=" my-auto">{props.user.fullName}</p>
-            <p className=" text-xs">{props.createdAt}</p>
+            <p className=" text-xs">
+              {props.createdAt
+                ? new Date(props?.createdAt).toLocaleDateString()
+                : ""}
+            </p>
           </div>
         </div>
         {props.isEditable ? (

@@ -60,7 +60,6 @@ const CreatePost = () => {
 
   const onInput: React.UIEventHandler<HTMLTextAreaElement> = (event) => {
     const textarea = event.target as HTMLAreaElement;
-
     textarea.style.height = "auto";
     textarea.style.height = textarea.scrollHeight + "px";
   };
@@ -99,7 +98,6 @@ const CreatePost = () => {
         });
       }
       const _id = isEditing ? id : data._id;
-      console.log("Улетел");
 
       navigate(`${POSTS_ROUTE}/${_id}`);
     } catch (err) {
@@ -158,6 +156,7 @@ const CreatePost = () => {
         </div>
 
         <textarea
+          rows={1}
           className="w-full px-2 py-2 resize-none outline-none overflow-hidden text-lg"
           placeholder="Здесь ваш текст"
           onInput={onInput}

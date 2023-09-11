@@ -23,20 +23,22 @@ const PostList: React.FC<PostListProps> = (props) => {
     else dispatch(setSort(sort));
   };
 
+  console.log(currentSort);
+
   return (
     <div className="mt-10">
       <div className="ml-1 space-x-10">
         <MoveBackButton
-          className={`px-6 hover:border-blue-800 rounded-none border-b-4 border-transparent ${
-            currentSort === "new" ? "border-blue-800" : ""
+          className={`px-6 hover:border-blue-800 rounded-none border-b-4   ${
+            currentSort === "new" ? " border-blue-800 " : "border-transparent"
           }`}
           onClick={onClickSort("new")}
         >
           Новые
         </MoveBackButton>
         <MoveBackButton
-          className={`px-6 hover:border-blue-800 rounded-none border-b-4 border-transparent ${
-            currentSort === "popular" ? "border-blue-800" : ""
+          className={`px-6 hover:border-blue-800 rounded-none border-b-4  ${
+            currentSort === "popular" ? "border-blue-800" : "border-transparent"
           }`}
           onClick={onClickSort("popular")}
         >

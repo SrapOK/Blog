@@ -8,7 +8,7 @@ import CommentsList, { commentList } from "../../component/CommentsList";
 
 import { fetchPostByIdApi } from "../../http/PostsAPI";
 import { getFullImageUrl } from "../../utils/helpers";
-import { fetchCommentsById } from "../../http/CommentsAPI";
+import { fetchCommentsByPostId } from "../../http/CommentsAPI";
 import { PostProps } from "../../component/Post";
 
 interface IfullPost extends PostProps {
@@ -17,7 +17,6 @@ interface IfullPost extends PostProps {
 
 const Post: React.FC = () => {
   const [postData, setPostData] = useState<IfullPost>();
-  const [comments, setComments] = useState<commentList>();
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
@@ -30,15 +29,6 @@ const Post: React.FC = () => {
       .catch((err) => {
         console.warn(err);
         alert("Ошибка при получении статьи");
-      });
-
-    fetchCommentsById(id)
-      .then((res) => {
-        setComments(res);
-      })
-      .catch((err) => {
-        console.warn(err);
-        alert("Ошибка при получении комментариев");
       });
   }, []);
 
@@ -72,12 +62,7 @@ const Post: React.FC = () => {
             tags={postData?.tags}
           />
         </div>
-
-        {comments?.length ? (
-          <CommentsList list={comments}></CommentsList>
-        ) : (
-          <></>
-        )}
+        <CommentsList id={id}></CommentsList>
       </div>
     );
 };
