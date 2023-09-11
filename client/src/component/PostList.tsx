@@ -23,8 +23,6 @@ const PostList: React.FC<PostListProps> = (props) => {
     else dispatch(setSort(sort));
   };
 
-  console.log(currentSort);
-
   return (
     <div className="mt-10">
       <div className="ml-1 space-x-10">

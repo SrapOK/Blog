@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../utils/hooks/reduxHooks";
 import PostList from "../component/PostList";
 import TagsBar from "../component/TagsBar";
 
-export const Home = () => {
+const Home = () => {
   const dispatch = useAppDispatch();
   const { posts, tags } = useAppSelector((state) => state.posts);
   const { tag, sort } = useAppSelector((state) => state.filter);
@@ -30,3 +30,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;

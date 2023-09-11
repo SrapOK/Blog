@@ -1,20 +1,21 @@
-import Admin from "./pages/Admin";
-import { Home } from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import PostPage from "./pages/PostPage";
-import AuthPage from "./pages/LoginPage";
-import RegistrationPage from "./pages/RegistrationPage";
-import CreatePost from "./pages/CreatePostPage";
+import { lazy } from "react";
+
+import Home from "./pages/Home";
 
 import {
   HOME_ROUTE,
-  ADMIN_ROUTE,
   NOT_FOUND_ROUTE,
   POSTS_ROUTE,
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,
   CREATE_POST_ROUTE
 } from "./utils/consts";
+
+const NotFound = lazy(() => import("./pages/NotFound"));
+const AuthPage = lazy(() => import("./pages/LoginPage"));
+const RegistrationPage = lazy(() => import("./pages/RegistrationPage"));
+const CreatePost = lazy(() => import("./pages/CreatePostPage"));
+const PostPage = lazy(() => import("./pages/PostPage"));
 
 export const publicRoutes = [
   { path: HOME_ROUTE, Component: Home },
@@ -31,6 +32,5 @@ export const publicRoutes = [
 
 export const authRoutes = [
   { path: `${POSTS_ROUTE}/:id/edit`, Component: CreatePost },
-  { path: ADMIN_ROUTE, Component: Admin },
   { path: `${CREATE_POST_ROUTE}`, Component: CreatePost }
 ];
