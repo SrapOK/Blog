@@ -115,35 +115,41 @@ const CreatePost = () => {
         className="flex-col bg-transparent"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="mx-6 flex flex-wrap justify-between gap-4">
-          <Button
-            type="button"
-            onClick={() => inputFileRef.current?.click()}
-            className="max-w-xs min-w-fit text-lg"
-          >
-            Загрузить изображение
-          </Button>
-          <input
-            {...register("imageUrl")}
-            ref={inputFileRef}
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleChangeFile}
-            hidden
-          ></input>
+        <div className="mx-6 flex flex-col gap-4">
+          <div className="flex justify-between">
+            <Button
+              type="button"
+              onClick={() => inputFileRef.current?.click()}
+              className="max-w-xs min-w-fit text-lg"
+            >
+              Загрузить изображение
+            </Button>
+            <input
+              {...register("imageUrl")}
+              ref={inputFileRef}
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={handleChangeFile}
+              hidden
+            ></input>
+            {watch("imageUrl") && (
+              <>
+                <MoveBackButton
+                  onClick={handleRemoveFile}
+                  className="text-rose-700 px-5 active:text-rose-900"
+                >
+                  Удалить
+                </MoveBackButton>
+              </>
+            )}
+          </div>
           {watch("imageUrl") && (
-            <>
-              <MoveBackButton
-                onClick={handleRemoveFile}
-                className="text-rose-700 px-5 active:text-rose-900"
-              >
-                Удалить
-              </MoveBackButton>
+            <div className="flex justify-center">
               <img
                 src={`${getFullImageUrl(watch("imageUrl"))}`}
-                alt="yours picture"
+                alt="your picture"
               />
-            </>
+            </div>
           )}
         </div>
         <div className="flex align-middle justify-center">
@@ -157,7 +163,7 @@ const CreatePost = () => {
 
         <textarea
           rows={1}
-          className="w-full px-2 py-2 resize-none outline-none overflow-hidden text-lg"
+          className="w-full px-6 py-2 resize-none outline-none overflow-hidden text-lg"
           placeholder="Здесь ваш текст"
           onInput={onInput}
           {...register("text")}

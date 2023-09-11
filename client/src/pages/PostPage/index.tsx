@@ -8,7 +8,6 @@ import CommentsList, { commentList } from "../../component/CommentsList";
 
 import { fetchPostByIdApi } from "../../http/PostsAPI";
 import { getFullImageUrl } from "../../utils/helpers";
-import { fetchCommentsByPostId } from "../../http/CommentsAPI";
 import { PostProps } from "../../component/Post";
 
 interface IfullPost extends PostProps {

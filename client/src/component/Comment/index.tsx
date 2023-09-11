@@ -46,9 +46,9 @@ const Comment: React.FC<CommentProps> = (props) => {
           ></AiOutlineDislike>
         </div>
       </div>
-      <div className="ml-2 flex justify-between flex-col">
-        <p className=" my-auto">{props.user.fullName}</p>
-        <p className="text-gray-700 my-2">{props.text}</p>
+      <div className="ml-2 flex justify-between flex-col break-all">
+        <p className=" my-auto break-words">{props.user.fullName}</p>
+        <p className="text-gray-700 my-2 mr-2 ">{props.text}</p>
         <p className="text-gray-500 text-sm ">
           {new Date(props.createdAt).toLocaleString()}
         </p>

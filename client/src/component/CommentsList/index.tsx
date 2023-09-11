@@ -42,14 +42,14 @@ const CommentsList: React.FC<CommentsListProps> = (props) => {
 
   return (
     <div className=" border-t-2">
-      <div className="ml-[7.5rem] my-2 py-2 space-y-3">
+      <div className="ml-1 md:ml-6 my-2 py-2 space-y-3">
         <p>
           {comments.length}
           {comments.length > 3 ? " Комментариев" : " Комментария"}
         </p>
         <CreateNewComment onClick={clickOnCreateNewComment(props.id)} />
       </div>
-      <div className="ml-6">
+      <div className="ml-1 md:ml-6">
         {comments.map((item, index) =>
           item ? (
             <Comment key={item._id} {...item}></Comment>
