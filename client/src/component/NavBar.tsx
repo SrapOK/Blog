@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import {
   CREATE_POST_ROUTE,
@@ -8,6 +7,7 @@ import {
 } from "../utils/consts";
 import { useAppDispatch, useAppSelector } from "../utils/hooks/reduxHooks";
 import { logout, selectIsAuth } from "../redux/slices/auth";
+import { AiOutlineSearch } from "react-icons/ai";
 
 function NavBar() {
   const isAuth = useAppSelector(selectIsAuth);
@@ -23,6 +23,14 @@ function NavBar() {
       <Link to={HOME_ROUTE} className="uppercase font-bold text-blue-800">
         Posts
       </Link>
+
+      <div className="border-b-2 outline-none flex align-middle py-1 gap-2">
+        <AiOutlineSearch
+          className=" cursor-pointer text-gray-400"
+          size={24}
+        ></AiOutlineSearch>
+        <input className="outline-none" type="text" />
+      </div>
       <nav className="flex items-center">
         <ul className="text-gray-500 font-semibold flex gap-5">
           {isAuth ? (

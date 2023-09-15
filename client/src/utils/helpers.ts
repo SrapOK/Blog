@@ -1,3 +1,3 @@
 export function getFullImageUrl(shortUrl: string | undefined) {
-  return `${process.env.REACT_APP_API_URL}${shortUrl}`;
+  return `${import.meta.env.VITE_API_URL}${shortUrl}`;
 }

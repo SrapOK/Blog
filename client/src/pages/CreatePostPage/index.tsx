@@ -5,7 +5,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 
 import { HOME_ROUTE, POSTS_ROUTE } from "../../utils/consts";
 import { uploadImage } from "../../http/ImageAPI";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
+import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { selectIsAuth } from "../../redux/slices/auth";
 
 import MoveBackButton from "../../component/BlankButton";
@@ -53,6 +53,8 @@ const CreatePost = () => {
           setValue("imageUrl", res.imageUrl);
         })
         .catch((err) => {
+          console.log(err);
+
           alert("Не удалось получить статью");
         });
     }

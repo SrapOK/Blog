@@ -29,7 +29,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const onClickRemove: React.MouseEventHandler<SVGAElement> = (event) => {
+  const onClickRemove: React.MouseEventHandler<SVGAElement> = () => {
     if (window.confirm("Вы действительно хотите удалить статью?")) {
       dispatch(fetchRemovePost(props._id));
     }

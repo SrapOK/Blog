@@ -1,5 +1,3 @@
-import React from "react";
-
 import { fetchPosts, fetchTags } from "../redux/slices/posts";
 import { useEffect } from "react";
 

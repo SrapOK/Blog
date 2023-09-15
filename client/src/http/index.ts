@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios";
 
-const $host = axios.create({ baseURL: process.env.REACT_APP_API_URL });
-const $authHost = axios.create({ baseURL: process.env.REACT_APP_API_URL });
+const $host = axios.create({ baseURL: import.meta.env.VITE_API_URL });
+const $authHost = axios.create({ baseURL: import.meta.env.VITE_API_URL });
 
 const authInterseptor = (config: InternalAxiosRequestConfig) => {
   config.headers.Authorization = `Bearer ${window.localStorage.getItem(

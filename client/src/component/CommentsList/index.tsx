@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../utils/hooks/reduxHooks";
 
 import { fetchCommentsByPostId } from "../../http/CommentsAPI";
 import { createNewComment } from "../../http/CommentsAPI";

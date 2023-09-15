@@ -1,4 +1,3 @@
-import React from "react";
 import { Navigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { fetchLogin, selectIsAuth } from "../redux/slices/auth";

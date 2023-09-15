@@ -1,6 +1,7 @@
-import React from "react";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
+
+import LoadingPage from "../pages/LoadingPage";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 
@@ -9,7 +10,7 @@ function Layout() {
     <div className="bg-gray-100">
       <NavBar />
       <main className="mb-0 pb-16">
-        <Suspense fallback={<h1>ЗАГРУЗКА</h1>}>
+        <Suspense fallback={<LoadingPage />}>
           <Outlet />
         </Suspense>
       </main>

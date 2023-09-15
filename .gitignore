@@ -5,6 +5,8 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 .npm
+*build
+*dist
 *node_modules/
 jspm_packages/
 uploads/

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import PostPageSkeleton from "./Skeleton";
 import BottomPostBar from "../../component/BottomPostBar";
-import CommentsList, { commentList } from "../../component/CommentsList";
+import CommentsList from "../../component/CommentsList";
 
 import { fetchPostByIdApi } from "../../http/PostsAPI";
 import { getFullImageUrl } from "../../utils/helpers";

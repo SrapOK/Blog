@@ -16,7 +16,7 @@ export const createNewComment = async (
   text: string
 ) => {
   if (postId) {
-    const { data } = await $authHost.post(`${COMMENTS_ROUTE}/${postId}`, {
+    await $authHost.post(`${COMMENTS_ROUTE}/${postId}`, {
       text
     });
   } else return null;
