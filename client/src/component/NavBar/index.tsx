@@ -4,14 +4,20 @@ import {
   HOME_ROUTE,
   LOGIN_ROUTE,
   REGISTRATION_ROUTE
-} from "../utils/consts";
-import { useAppDispatch, useAppSelector } from "../utils/hooks/reduxHooks";
-import { logout, selectIsAuth } from "../redux/slices/auth";
-import { AiOutlineSearch } from "react-icons/ai";
+} from "../../utils/consts";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
+import { logout, selectIsAuth } from "../../redux/slices/auth";
+import SearchField from "./SearchField";
+import { setSearch } from "../../redux/slices/filter";
+import { throttle } from "../../utils/decorators";
 
 function NavBar() {
   const isAuth = useAppSelector(selectIsAuth);
-  const dispatch = useAppDispatch();
+  const dispatch = throttle(useAppDispatch(), 1500);
+
+  const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    dispatch(setSearch(e.target.value));
+  };
 
   const onClickLogout = () => {
     dispatch(logout());
@@ -24,13 +30,8 @@ function NavBar() {
         Posts
       </Link>
 
-      <div className="border-b-2 outline-none flex align-middle py-1 gap-2">
-        <AiOutlineSearch
-          className=" cursor-pointer text-gray-400"
-          size={24}
-        ></AiOutlineSearch>
-        <input className="outline-none" type="text" />
-      </div>
+      <SearchField onChangeHandler={onChange}></SearchField>
+
       <nav className="flex items-center">
         <ul className="text-gray-500 font-semibold flex gap-5">
           {isAuth ? (

@@ -156,6 +156,7 @@ const CreatePost = () => {
         </div>
         <div className="flex align-middle justify-center">
           <input
+            maxLength={60}
             className="w-full mb-4 mt-6 py-2 px-6 outline-none text-3xl font-semibold"
             type="text"
             placeholder="Заголовок статьи..."
@@ -164,6 +165,7 @@ const CreatePost = () => {
         </div>
 
         <textarea
+          maxLength={10000}
           rows={1}
           className="w-full px-6 py-2 resize-none outline-none overflow-hidden text-lg"
           placeholder="Здесь ваш текст"
@@ -172,6 +174,7 @@ const CreatePost = () => {
         ></textarea>
 
         <input
+          maxLength={100}
           className="w-full my-2 py-2 px-6 outline-none text-lg border-b-2 "
           type="text"
           placeholder="Тэги..."

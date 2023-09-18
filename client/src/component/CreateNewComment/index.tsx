@@ -42,9 +42,10 @@ const CreateNewComment = (props: CreateNewCommentProps) => {
     <div>
       <form>
         <textarea
+          maxLength={2500}
           onFocus={onFocus}
           rows={1}
-          className="border-b  pb-1 outline-none duration-500  focus:border-gray-700 w-full resize-none overflow-hidden"
+          className="border-b  pb-1  pr-4 outline-none duration-500  focus:border-gray-700 w-full resize-none overflow-hidden"
           value={text}
           placeholder="Напишите комментарий"
           onChange={(e) => setText(e.target.value)}

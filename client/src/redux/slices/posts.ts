@@ -35,8 +35,8 @@ export const fetchRemovePost = createAsyncThunk(
 
 export const fetchPosts = createAsyncThunk(
   `${POSTS_ROUTE}/fetchPosts`,
-  async ({ tag, sort }: IPostFilterOptions) => {
-    const data = fetchPostsApi(tag, sort);
+  async ({ tag, sort, search }: IPostFilterOptions) => {
+    const data = fetchPostsApi(tag, sort, search);
     return data;
   }
 );

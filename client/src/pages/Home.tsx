@@ -9,12 +9,12 @@ import TagsBar from "../component/TagsBar";
 const Home = () => {
   const dispatch = useAppDispatch();
   const { posts, tags } = useAppSelector((state) => state.posts);
-  const { tag, sort } = useAppSelector((state) => state.filter);
+  const { tag, sort, search } = useAppSelector((state) => state.filter);
 
   useEffect(() => {
-    dispatch(fetchPosts({ tag, sort }));
+    dispatch(fetchPosts({ tag, sort, search }));
     dispatch(fetchTags());
-  }, [tag, sort]);
+  }, [tag, sort, search]);
 
   const isPostLoading = posts.status === "pending";
   const areTagsLoading = tags.status === "pending";

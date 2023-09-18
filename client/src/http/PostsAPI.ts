@@ -12,7 +12,7 @@ export interface UpdatedPost extends NewPost {
   id: string;
 }
 
-export const fetchPostsApi = async (tag = "", sort = "") => {
+export const fetchPostsApi = async (tag = "", sort = "", search = "") => {
   const params = new URLSearchParams();
 
   if (tag) {
@@ -21,6 +21,10 @@ export const fetchPostsApi = async (tag = "", sort = "") => {
 
   if (sort) {
     params.append("sort", sort);
+  }
+
+  if (search) {
+    params.append("search", search);
   }
 
   const { data } = await $host.get(`${POSTS_ROUTE}`, { params });
