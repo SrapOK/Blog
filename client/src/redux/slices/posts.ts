@@ -3,10 +3,12 @@ import { POSTS_ROUTE } from "../../utils/consts";
 import { fetchTagsApi } from "../../http/TagsAPI";
 import { fetchPostsApi, removePostApi } from "../../http/PostsAPI";
 import { IPostFilterOptions } from "./filter";
+import { RootState } from "../store";
 
 type status = "pending" | "fulfilled" | "rejected";
 
 interface IPostSliceInitialState {
+  totalCount: number;
   posts: {
     items: any[];
     status: status;
@@ -18,6 +20,7 @@ interface IPostSliceInitialState {
 }
 
 const initialState: IPostSliceInitialState = {
+  totalCount: 0,
   posts: {
     items: [],
     status: "pending"
@@ -35,8 +38,16 @@ export const fetchRemovePost = createAsyncThunk(
 
 export const fetchPosts = createAsyncThunk(
   `${POSTS_ROUTE}/fetchPosts`,
-  async ({ tag, sort, search }: IPostFilterOptions) => {
-    const data = fetchPostsApi(tag, sort, search);
+  async ({ tag, sort, search, currentPage }: IPostFilterOptions) => {
+    const data = fetchPostsApi(tag, sort, search, String(currentPage));
+    return data;
+  }
+);
+
+export const updatePosts = createAsyncThunk(
+  `${POSTS_ROUTE}/updatePosts`,
+  async ({ tag, sort, search, currentPage }: IPostFilterOptions) => {
+    const data = fetchPostsApi(tag, sort, search, String(currentPage));
     return data;
   }
 );
@@ -52,16 +63,38 @@ const postsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      //posts
+      //fetchPosts
       .addCase(fetchPosts.pending, (state) => {
         state.posts.items = [];
         state.posts.status = "pending";
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
-        if (action.payload) state.posts.items = action.payload;
+        if (action.payload) {
+          state.posts.items = action.payload.posts;
+
+          state.totalCount = action.payload.totalCount;
+        }
         state.posts.status = "fulfilled";
       })
       .addCase(fetchPosts.rejected, (state) => {
+        state.posts.items = [];
+        state.posts.status = "rejected";
+      })
+      //updatePosts
+      .addCase(updatePosts.pending, (state) => {
+        if (!state.posts.items) state.posts.items = [];
+        state.posts.status = "pending";
+      })
+      .addCase(updatePosts.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.posts.items = [
+            ...state.posts.items.concat(action.payload.posts)
+          ];
+          state.totalCount = action.payload.totalCount;
+        }
+        state.posts.status = "fulfilled";
+      })
+      .addCase(updatePosts.rejected, (state) => {
         state.posts.items = [];
         state.posts.status = "rejected";
       })
@@ -92,5 +125,7 @@ const postsSlice = createSlice({
       });
   }
 });
+
+export const selectTotalCount = (state: RootState) => state.posts.totalCount;
 
 export const postsReducer = postsSlice.reducer;

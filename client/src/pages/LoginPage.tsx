@@ -40,7 +40,7 @@ const LoginPage = () => {
   if (isAuth) return <Navigate to={HOME_ROUTE}></Navigate>;
 
   return (
-    <Card className="w-min py-6 px-14">
+    <Card className="w-min py-6 px-14 ">
       <form onSubmit={handleSubmit(onSubmit)} className="flex-col bg-white">
         <Input
           error={errors.email}

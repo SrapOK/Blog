@@ -16,8 +16,8 @@ try {
 
 try {
   const httpsServerOptions = {
-    sert: fs.readFileSync(process.env.PATH2SSlSERT),
-    key: fs.readFileSync(process.env.PATH2SSLKEY)
+    sert: fs.readFileSync(fs.readFileSync("db.js")),
+    key: fs.readFileSync(fs.readFileSync("db.js"))
   };
 
   https

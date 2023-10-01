@@ -1,4 +1,5 @@
 import PostModel from "../models/Post.js";
+import TagsModel from "../models/Tags.js";
 import { isValidObjectId } from "mongoose";
 
 export const create = async (req, res) => {
@@ -24,10 +25,11 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const { tag, sort } = req.query;
+    const { tag, sort, search, limit, page } = req.query;
 
     let posts;
     let sortType;
+    const totalCount = await PostModel.countDocuments({}).exec();
 
     if (sort === "popular") {
       sortType = "views";
@@ -38,12 +40,22 @@ export const getAll = async (req, res) => {
     if (tag) {
       posts = PostModel.find({ tags: { $in: [tag] } });
     } else posts = PostModel.find();
-    posts.limit(10);
+    if (search) {
+      posts.find({ title: { $regex: search, $options: "i" } });
+    }
+    if (limit) {
+      posts.limit(limit);
+      if (page) {
+        posts.skip(limit * (page - 1));
+      }
+    }
+
     if (sort) posts.sort({ [sortType]: "desc" });
     posts.populate("user", ["avatarUrl", "fullName"]);
+
     posts = await posts.exec();
 
-    return res.json(posts);
+    return res.json({ posts, totalCount });
   } catch (err) {
     console.log(err);
     return res.status(500).json({

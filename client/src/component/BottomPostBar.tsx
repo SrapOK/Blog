@@ -17,8 +17,8 @@ const BottomPostBar: React.FC<IBottomPostBar> = (props) => {
         <div>{props.views}</div>
       </div>
 
-      <div className="flex justify-between gap-2 overflow-hidden max-w-lg">
-        {props.tags?.slice(0, 5).map((item, index) => (
+      <div className="flex justify-between gap-2 overflow-hidden max-w-[50%]">
+        {props.tags?.slice(0, 4).map((item, index) => (
           <div key={index} className="flex flex-row ">
             <HiHashtag className="my-auto mr-1" />
 

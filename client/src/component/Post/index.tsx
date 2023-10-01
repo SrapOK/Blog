@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { useNavigate } from "react-router-dom";
+import { forwardRef } from "react";
 
 import { getFullImageUrl } from "../../utils/helpers";
 import { POSTS_ROUTE } from "../../utils/consts";
@@ -25,7 +26,7 @@ export interface PostProps {
   imageUrl?: string;
 }
 
-const Post: React.FC<PostProps> = (props: PostProps) => {
+const Post = forwardRef<HTMLDivElement, PostProps>(({ ...props }, ref) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -36,7 +37,10 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
   };
 
   return (
-    <div className="max-w-xl h-fit  border-2 rounded bg-white  hover:border-blue-300">
+    <div
+      ref={ref}
+      className="md:max-w-xl w-screen h-fit border-2 rounded bg-white  hover:border-blue-300 mx-auto"
+    >
       {props.imageUrl ? (
         <CustomLink to={`${POSTS_ROUTE}/${props._id}`}>
           <div className="w-full max-h-56 flex justify-center border-b">
@@ -106,6 +110,6 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
       </CustomLink>
     </div>
   );
-};
+});
 
 export default Post;

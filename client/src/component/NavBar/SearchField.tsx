@@ -11,16 +11,22 @@ const SearchField = memo((props: SearchFieldProps) => {
   const inputRef = useRef(null);
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (!e.target.value) setIsActive(false);
+    if (!e.target.value) {
+      setIsActive(false);
+    }
     setSearchValue(e.target.value);
     props.onChangeHandler(e);
   };
 
-  const onClick: React.MouseEventHandler<HTMLInputElement> = () => {
+  const onClick: React.MouseEventHandler<HTMLInputElement> = (e) => {
     setIsActive(!isActive);
     if (!isActive) {
       inputRef.current.focus();
     }
+    e.stopPropagation();
+  };
+  const onClickInput: React.MouseEventHandler<HTMLInputElement> = (e) => {
+    e.stopPropagation();
   };
 
   return (
@@ -29,17 +35,20 @@ const SearchField = memo((props: SearchFieldProps) => {
         <AiOutlineSearch
           onClick={onClick}
           className={`cursor-pointer duration-100 text-gray-400 rounded ${
-            !isActive ? "border-2" : ""
+            isActive ? " text-blue-500" : "border-2"
           } `}
           size={28}
         ></AiOutlineSearch>
         <input
+          onClick={onClickInput}
           maxLength={26}
           onChange={onChange}
           ref={inputRef}
           value={searchValue}
           className={` outline-none transition-all duration-700 utline-none border-b-2 ${
-            isActive ? "opacity-100 " : "opacity-0 cursor-default"
+            isActive
+              ? "opacity-100 border-blue-100"
+              : "opacity-0 cursor-default"
           }`}
           type="text"
         />

@@ -21,7 +21,7 @@ const TagsBar: React.FC<ITagsProps> = ({ list }) => {
   };
 
   return list.length > 0 ? (
-    <div className="p-4 w-full md:w-36 mt-10  md:ml-16 border-2 h-fit bg-white">
+    <div className="p-4 w-full md:w-36 border-2 md:max-w-[16rem] max-w-[12rem] h-fit bg-white mx-auto">
       <h3 className="uppercase font-semibold p-2">Тэги</h3>
       <ul className="mt-4">
         {list.map((item, index) =>

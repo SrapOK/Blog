@@ -35,11 +35,11 @@ const Post: React.FC = () => {
     return <PostPageSkeleton />;
   } else
     return (
-      <div className="my-2 container mx-auto min-w-[30%] w-fit border-2 max-w-[70%] rounded-t-md  mt-10 bg-white">
+      <div className="container mx-auto w-min md:w-fit border-2 md:max-w-[70%] rounded-t-md bg-white">
         {postData?.imageUrl ? (
-          <div className="w-full flex justify-center ">
+          <div className="w-full flex justify-center  ">
             <img
-              className="rounded-t-md   "
+              className="rounded-t-md max-h-96  "
               src={getFullImageUrl(postData.imageUrl)}
               alt="post"
             />

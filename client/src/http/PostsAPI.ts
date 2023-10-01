@@ -12,20 +12,21 @@ export interface UpdatedPost extends NewPost {
   id: string;
 }
 
-export const fetchPostsApi = async (tag = "", sort = "", search = "") => {
+export const fetchPostsApi = async (
+  tag = "",
+  sort = "",
+  search = "",
+  page = "",
+  limit = ""
+) => {
   const params = new URLSearchParams();
 
-  if (tag) {
-    params.append("tag", tag);
-  }
-
-  if (sort) {
-    params.append("sort", sort);
-  }
-
-  if (search) {
-    params.append("search", search);
-  }
+  if (tag) params.append("tag", tag);
+  if (sort) params.append("sort", sort);
+  if (search) params.append("search", search);
+  if (limit) params.append("limit", limit);
+  else params.append("limit", "5");
+  if (page) params.append("page", page);
 
   const { data } = await $host.get(`${POSTS_ROUTE}`, { params });
 
