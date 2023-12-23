@@ -51,6 +51,7 @@ export const getAll = async (req, res) => {
     }
 
     if (sort) posts.sort({ [sortType]: "desc" });
+    else posts.sort({ createdAt: "desc" });
     posts.populate("user", ["avatarUrl", "fullName"]);
 
     posts = await posts.exec();

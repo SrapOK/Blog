@@ -1,6 +1,6 @@
 import { isValidObjectId } from "mongoose";
 import CommentModel from "../models/Comment.js";
-import PostModel from "../models/Post.js";
+import FeedbackModel from "../models/Feedback.js";
 
 export const create = async (req, res) => {
   const { text } = req.body;
@@ -102,6 +102,16 @@ export const removeOne = async (req, res) => {
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: "Не удалось удалить комментарий" });
+  }
+};
+
+export const patch = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { payload } = req.body;
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ message: "Не удалось обновить комментарий" });
   }
 };
 

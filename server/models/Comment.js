@@ -2,13 +2,19 @@ import mongoose from "mongoose";
 
 const CommentSchema = new mongoose.Schema(
   {
-    rate: {
+    feedback: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Feedback"
+    },
+    rating: {
       type: Number,
       default: 0
     },
     text: {
       type: String,
       default: "",
+      lowercase: true,
+      trim: true,
       required: true
     },
     user: {

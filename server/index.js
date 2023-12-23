@@ -4,11 +4,13 @@ import fs from "fs";
 import app from "./app.js";
 
 try {
-  http.createServer(app).listen(process.env.PORT, (err) => {
+  http.createServer(app).listen(process.env.HTTP_PORT, (err) => {
     if (err) {
       return console.log(err);
     }
-    console.log(`http server has been started on ${process.env.PORT} port`);
+    console.log(
+      `http server has been started on ${process.env.HTTP_PORT} port`
+    );
   });
 } catch (err) {
   console.log(err);
@@ -16,17 +18,19 @@ try {
 
 try {
   const httpsServerOptions = {
-    sert: fs.readFileSync(fs.readFileSync("db.js")),
-    key: fs.readFileSync(fs.readFileSync("db.js"))
+    cert: fs.readFileSync(`${process.env.PATH2SSL}/fullchain.pem`),
+    key: fs.readFileSync(`${process.env.PATH2SSL}.online/privkey.pem`)
   };
 
   https
     .createServer(httpsServerOptions, app)
-    .listen(process.env.PORT + "1", (err) => {
+    .listen(process.env.HTTPS_PORT, (err) => {
       if (err) {
         return console.log(err);
       }
-      console.log(`https server has been started on ${process.env.PORT} port`);
+      console.log(
+        `https server has been started on ${process.env.HTTPS_PORT} port`
+      );
     });
 } catch (err) {
   console.log(err);

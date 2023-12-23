@@ -13,6 +13,8 @@ const SearchField = memo((props: SearchFieldProps) => {
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!e.target.value) {
       setIsActive(false);
+    } else if (e.target.value) {
+      setIsActive(true);
     }
     setSearchValue(e.target.value);
     props.onChangeHandler(e);

@@ -13,6 +13,9 @@ export interface CommentProps {
 }
 
 const Comment: React.FC<CommentProps> = (props) => {
+  const onClickLike = () => {};
+  const onClickDislike = () => {};
+
   return (
     <div className="flex border-b gap-4 my-4 py-1 mr-0 ">
       <div className="flex align-middle flex-col justify-center text-center gap-2">

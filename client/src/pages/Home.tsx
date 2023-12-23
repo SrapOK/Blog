@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../utils/hooks/reduxHooks";
 
 import PostList from "../component/PostList";
 import TagsBar from "../component/TagsBar";
-import { selectCurrentPage } from "../redux/slices/filter";
+import { selectCurrentPage, setCurrentPage } from "../redux/slices/filter";
 
 const Home = () => {
   const dispatch = useAppDispatch();
@@ -15,8 +15,9 @@ const Home = () => {
   const { tag, sort, search } = useAppSelector((state) => state.filter);
 
   useEffect(() => {
-    dispatch(fetchPosts({ tag, sort, search }));
+    dispatch(fetchPosts({ tag, sort, search, currentPage: 1 }));
     dispatch(fetchTags());
+    dispatch(setCurrentPage(1));
   }, [tag, sort, search]);
 
   useEffect(() => {
